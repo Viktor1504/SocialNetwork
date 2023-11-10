@@ -1,7 +1,12 @@
 import React from 'react';
 import s from './Posts.module.css'
 
-export const Post = (props: any) => {
+type PostPropsType = {
+    message: string
+    likesCount: string
+}
+
+export const Post = (props: PostPropsType) => {
     return (
         <div className={s.item}>
             <img
