@@ -1,9 +1,13 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './post/Post';
+import {DataTypeProps} from '../../../index';
 
+export const MyPosts = ({posts}: DataTypeProps) => {
 
-export const MyPosts = () => {
+    const postsElements = posts ? posts.map(post => <Post id={post.id} message={post.message}
+                                                          likesCount={post.likesCount}/>) : null
+
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
@@ -16,8 +20,7 @@ export const MyPosts = () => {
                 </div>
             </div>
             <div className={s.posts}>
-                <Post message={'Hi, how are you?'} likesCount={'15'}/>
-                <Post message={'It\'s my firs post'} likesCount={'10'}/>
+                {postsElements}
             </div>
         </div>
     )
