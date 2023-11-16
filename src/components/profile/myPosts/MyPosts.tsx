@@ -1,12 +1,13 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './post/Post';
-import {DataTypeProps} from '../../../index';
+import {ProfilePageType} from '../../../redux/state';
 
-export const MyPosts = ({posts}: DataTypeProps) => {
+export const MyPosts = (props: ProfilePageType) => {
 
-    const postsElements = posts ? posts.map(post => <Post id={post.id} message={post.message}
-                                                          likesCount={post.likesCount}/>) : null
+    const postsElements = props.posts.map(post => <Post id={post.id}
+                                                  message={post.message}
+                                                  likesCount={post.likesCount}/>)
 
     return (
         <div className={s.postsBlock}>

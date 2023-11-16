@@ -5,9 +5,13 @@ import {Profile} from './components/profile/Profile';
 import {Header} from './components/header/Header';
 import {Dialogs} from './components/dialogs/Dialogs';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {DataTypeProps} from './index';
+import {RootStateType} from './redux/state';
 
-function App(props: DataTypeProps) {
+type PropsType = {
+    state: RootStateType
+}
+
+function App(props: PropsType) {
 
     return (
         <BrowserRouter>
@@ -16,9 +20,11 @@ function App(props: DataTypeProps) {
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
-                        <Route path="/profile/*" element={<Profile posts={props.posts}/>}/>
+                        <Route path="/profile/*"
+                               element={<Profile posts={props.state.profilePage.posts}/>}/>
                         <Route path="/dialogs/*"
-                               element={<Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                               element={<Dialogs dialogs={props.state.dialogsPage.dialogs}
+                                                 messages={props.state.dialogsPage.messages}/>}/>
                     </Routes>
                 </div>
             </div>
