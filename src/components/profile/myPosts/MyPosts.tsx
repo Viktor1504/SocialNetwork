@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './post/Post';
 import {ProfilePropsType} from '../Profile';
@@ -10,28 +10,22 @@ export const MyPosts: React.FC<ProfilePropsType> = (props) => {
                                                                     message={post.message}
                                                                     likesCount={post.likesCount}/>)
 
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
-    }
+    const onClickAddPost = () => props.addPost()
 
-    const onClickAddPost = () => {
-        props.addPost()
-    }
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => props.updateNewPostText(e.currentTarget.value)
 
-    return (
-        <div className={s.postsBlock}>
-            <h3>My posts</h3>
+    return <div className={s.postsBlock}>
+        <h3>My posts</h3>
+        <div>
             <div>
-                <div>
-                    <textarea value={props.profilePage.newPostText} onChange={onPostChange}/>
-                </div>
-                <div>
-                    <button onClick={onClickAddPost}>Add post</button>
-                </div>
+                <textarea value={props.profilePage.newPostText} onChange={onPostChange}/>
             </div>
-            <div className={s.posts}>
-                {postsElements}
+            <div>
+                <button onClick={onClickAddPost}>Add post</button>
             </div>
         </div>
-    )
+        <div className={s.posts}>
+            {postsElements}
+        </div>
+    </div>
 }
