@@ -1,5 +1,5 @@
-import {profileReducer} from './profileReducer';
-import {dialogsReducer} from './dialogsReducer';
+import {addPostAC, profileReducer, updateNewPostTextAC} from './profileReducer';
+import {dialogsReducer, sendMessageAC, updateNewMessageTextAC} from './dialogsReducer';
 import {sidebarReducer} from './sidebarReducer';
 
 export type MessageType = {
@@ -30,6 +30,12 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
+
+export type ActionsTypes =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof sendMessageAC>
+    | ReturnType<typeof updateNewMessageTextAC>
 
 const store = {
     _state: <RootStateType>{
@@ -82,16 +88,5 @@ const store = {
         this._callSubscriber(this._state)
     }
 }
-
-export type ActionsTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof sendMessageAC>
-    | ReturnType<typeof updateNewMessageTextAC>
-
-export const addPostAC = () => ({type: 'ADD-POST'}) as const
-export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const
-export const sendMessageAC = () => ({type: 'SEND-MESSAGE'}) as const
-export const updateNewMessageTextAC = (text: string) => ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: text}) as const
 
 export default store
