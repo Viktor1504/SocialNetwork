@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './post/Post';
 import {ProfilePropsType} from '../Profile';
+import {addPostAC, updateNewPostTextAC} from '../../../redux/state';
 
 export const MyPosts: React.FC<ProfilePropsType> = (props) => {
 
@@ -10,9 +11,9 @@ export const MyPosts: React.FC<ProfilePropsType> = (props) => {
                                                                     message={post.message}
                                                                     likesCount={post.likesCount}/>)
 
-    const onClickAddPost = () => props.addPost()
+    const onClickAddPost = () => props.dispatch(addPostAC())
 
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => props.updateNewPostText(e.currentTarget.value)
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => props.dispatch(updateNewPostTextAC(e.currentTarget.value))
 
     return <div className={s.postsBlock}>
         <h3>My posts</h3>

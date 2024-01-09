@@ -5,12 +5,11 @@ import {Profile} from './components/profile/Profile';
 import {Header} from './components/header/Header';
 import {Dialogs} from './components/dialogs/Dialogs';
 import {Route, Routes} from 'react-router-dom';
-import {RootStateType} from './redux/state';
+import {ActionsTypes, RootStateType} from './redux/state';
 
 type PropsType = {
     state: RootStateType
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 function App(props: PropsType) {
@@ -20,15 +19,15 @@ function App(props: PropsType) {
         <Navbar/>
         <div className={'app-wrapper-content'}>
             <Routes>
-                <Route path="/dialogs"
+                <Route path="dialogs"
                        element={<Dialogs
-                           dialogs={props.state.dialogsPage.dialogs}
-                           messages={props.state.dialogsPage.messages}/>}/>
-                <Route path="/profile"
+                           dialogsPage={props.state.dialogsPage}
+                           dispatch={props.dispatch}
+                       />}/>
+                <Route path="profile"
                        element={<Profile
                            profilePage={props.state.profilePage}
-                           addPost={props.addPost}
-                           updateNewPostText={props.updateNewPostText}
+                           dispatch={props.dispatch}
                        />}/>
             </Routes>
         </div>

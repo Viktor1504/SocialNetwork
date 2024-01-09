@@ -1,3 +1,7 @@
+import {profileReducer} from './profileReducer';
+import {dialogsReducer} from './dialogsReducer';
+import {sidebarReducer} from './sidebarReducer';
+
 export type MessageType = {
     id: string
     message: string
@@ -11,7 +15,6 @@ export type PostType = {
     message: string
     likesCount: number
 }
-
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
@@ -19,6 +22,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
+    newMessageText: string
 }
 export type SidebarType = {}
 export type RootStateType = {
@@ -36,7 +40,7 @@ const store = {
                 {id: crypto.randomUUID(), message: 'Bla', likesCount: 10},
                 {id: crypto.randomUUID(), message: 'BLABLABLA', likesCount: 9}
             ],
-            newPostText: 'it-kamasutra.com'
+            newPostText: ''
         },
         dialogsPage: {
             dialogs: [
@@ -54,33 +58,40 @@ const store = {
                 {id: crypto.randomUUID(), message: 'Yo'},
                 {id: crypto.randomUUID(), message: 'Yo'},
                 {id: crypto.randomUUID(), message: 'Yo'}
-            ]
+            ],
+            newMessageText: ''
         },
         sidebar: {}
-    },
-    getState() {
-        return this._state
     },
     _callSubscriber(state: RootStateType) {
         console.log('State changed')
     },
-    addPost() {
-        const newPost: PostType = {
-            id: crypto.randomUUID(),
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber(this._state)
+    getState() {
+        return this._state
     },
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer
+    },
+
+    dispatch(action: ActionsTypes) {
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state)
     }
 }
+
+export type ActionsTypes =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof sendMessageAC>
+    | ReturnType<typeof updateNewMessageTextAC>
+
+export const addPostAC = () => ({type: 'ADD-POST'}) as const
+export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const
+export const sendMessageAC = () => ({type: 'SEND-MESSAGE'}) as const
+export const updateNewMessageTextAC = (text: string) => ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: text}) as const
 
 export default store
