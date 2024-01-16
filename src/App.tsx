@@ -8,6 +8,7 @@ import {Route, Routes} from 'react-router-dom';
 import {ActionsTypes, RootStateType} from './redux/store';
 import {AppRootStateType} from './redux/redux-store';
 import {Store} from 'redux';
+import {DialogsContainer} from './components/dialogs/DialogsContainer';
 
 type PropsType = {
     state: RootStateType
@@ -22,7 +23,7 @@ function App(props: PropsType) {
         <div className={'app-wrapper-content'}>
             <Routes>
                 <Route path="/dialogs"
-                       element={<Dialogs store={props.store}/>}
+                       element={<DialogsContainer store={props.store}/>}
                 />
                 <Route path="/profile"
                        element={<Profile
