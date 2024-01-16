@@ -1,30 +1,30 @@
 import React from 'react';
-import {Post} from './post/Post';
-import {ProfilePropsType} from '../Profile';
 import {addPostAC, updateNewPostTextAC} from '../../../redux/profileReducer';
 import {MyPosts} from './MyPosts';
+import {Store} from 'redux';
+import {AppRootStateType} from '../../../redux/redux-store';
 
-export const MyPostsContainer: React.FC<ProfilePropsType> = (props) => {
+export type MyPostsContainerPropsType = {
+    store: Store<AppRootStateType>
+}
 
-    const postsElements = props.profilePage.posts.map(post => <Post key={post.id}
-                                                                    id={post.id}
-                                                                    message={post.message}
-                                                                    likesCount={post.likesCount}/>)
-    const newPostText = props.profilePage.newPostText
+export const MyPostsContainer: React.FC<MyPostsContainerPropsType> = (props) => {
+
+    const state = props.store.getState()
 
     const onClickAddPost = () => {
-        props.dispatch(addPostAC())
+        props.store.dispatch(addPostAC())
     }
 
     const onPostChange = (text: string) => {
-        props.dispatch(updateNewPostTextAC(text))
+        props.store.dispatch(updateNewPostTextAC(text))
     }
 
     return (
         <MyPosts addPost={onClickAddPost}
                  updateNewPostText={onPostChange}
-                 newPostText={newPostText}
-                 postsElements={postsElements}
+                 newPostText={state.profilePage.newPostText}
+                 postsElements={state.profilePage.posts}
         />
     )
 }

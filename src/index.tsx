@@ -12,12 +12,10 @@ const root = createRoot(
 );
 
 const rerenderEntireTree = (state: AppRootStateType) => {
-    debugger
-
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} dispatch={store.dispatch.bind(store)}/>
+                <App state={state} dispatch={store.dispatch.bind(store)} store={store}/>
             </BrowserRouter>
         </React.StrictMode>
     );

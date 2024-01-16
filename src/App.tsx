@@ -6,29 +6,28 @@ import {Header} from './components/header/Header';
 import {Dialogs} from './components/dialogs/Dialogs';
 import {Route, Routes} from 'react-router-dom';
 import {ActionsTypes, RootStateType} from './redux/store';
+import {AppRootStateType} from './redux/redux-store';
+import {Store} from 'redux';
 
 type PropsType = {
     state: RootStateType
+    store: Store<AppRootStateType>
     dispatch: (action: ActionsTypes) => void
 }
 
 function App(props: PropsType) {
-    debugger
     return <div className="app-wrapper">
         <Header/>
         <Navbar/>
         <div className={'app-wrapper-content'}>
             <Routes>
                 <Route path="/dialogs"
-                       element={<Dialogs
-                           dialogsPage={props.state.dialogsPage}
-                           dispatch={props.dispatch}
-                       />}/>
+                       element={<Dialogs store={props.store}/>}
+                />
                 <Route path="/profile"
                        element={<Profile
-                           profilePage={props.state.profilePage}
-                           dispatch={props.dispatch}
-                       />}/>
+                           store={props.store}/>}
+                />
             </Routes>
         </div>
     </div>

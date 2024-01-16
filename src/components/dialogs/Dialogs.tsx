@@ -4,25 +4,28 @@ import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
 import {ActionsTypes, DialogsPageType} from '../../redux/store';
 import {sendMessageAC, updateNewMessageTextAC} from '../../redux/dialogsReducer';
+import {Store} from 'redux';
+import {AppRootStateType} from '../../redux/redux-store';
 
 type DialogsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action: ActionsTypes) => void
+    store: Store<AppRootStateType>
 }
 
 export const Dialogs: React.FC<DialogsType> = (props) => {
 
-    const dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id} id={dialog.id}
-                                                                                name={dialog.name}/>)
-    const messagesElements = props.dialogsPage.messages.map(message => <Message key={message.id} id={message.id}
-                                                                                message={message.message}/>)
+    const dialogsElements = props.store.getState().dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id}
+                                                                                                 id={dialog.id}
+                                                                                                 name={dialog.name}/>)
+    const messagesElements = props.store.getState().dialogsPage.messages.map(message => <Message key={message.id}
+                                                                                                 id={message.id}
+                                                                                                 message={message.message}/>)
 
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageTextAC(e.currentTarget.value))
+        props.store.dispatch(updateNewMessageTextAC(e.currentTarget.value))
     }
 
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageAC())
+        props.store.dispatch(sendMessageAC())
     }
 
     return (
@@ -35,7 +38,7 @@ export const Dialogs: React.FC<DialogsType> = (props) => {
                 <div>
                     <div>
                         <textarea placeholder={'enter your message'}
-                                  value={props.dialogsPage.newMessageText}
+                                  value={props.store.getState().dialogsPage.newMessageText}
                                   onChange={onMessageChange}></textarea>
                     </div>
                     <div>
