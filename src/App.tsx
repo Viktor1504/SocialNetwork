@@ -5,7 +5,7 @@ import {Profile} from './components/profile/Profile';
 import {Header} from './components/header/Header';
 import {Dialogs} from './components/dialogs/Dialogs';
 import {Route, Routes} from 'react-router-dom';
-import {ActionsTypes, RootStateType} from './redux/state';
+import {ActionsTypes, RootStateType} from './redux/store';
 
 type PropsType = {
     state: RootStateType
@@ -13,18 +13,18 @@ type PropsType = {
 }
 
 function App(props: PropsType) {
-
+    debugger
     return <div className="app-wrapper">
         <Header/>
         <Navbar/>
         <div className={'app-wrapper-content'}>
             <Routes>
-                <Route path="dialogs"
+                <Route path="/dialogs"
                        element={<Dialogs
                            dialogsPage={props.state.dialogsPage}
                            dispatch={props.dispatch}
                        />}/>
-                <Route path="profile"
+                <Route path="/profile"
                        element={<Profile
                            profilePage={props.state.profilePage}
                            dispatch={props.dispatch}

@@ -1,12 +1,12 @@
 import React from 'react';
 import s from './Posts.module.css'
-import {PostType} from '../../../../redux/state';
+import {PostType} from '../../../../redux/store';
 
 export const Post = (props: PostType) => {
     return (
         <div className={s.item}>
             <img
-                src={'https://yt3.googleusercontent.com/--0u2skhWRGZMCj5mNXIXLmbXeR4Y-ftUigVYN0Ide2RJe3SyHTc5PfyaGapNH097_rQtzz9nk4=s900-c-k-c0x00ffffff-no-rj'}/>
+                src={'https://thumbs.dreamstime.com/b/%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%BB%D1%8E%D0%B4%D0%B5%D0%B9-%D0%B8%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9-%D0%BF%D0%BB%D0%BE%D1%81%D0%BA%D0%B8%D0%B9-%D1%80%D0%B8%D1%81%D1%83%D0%BD%D0%BE%D0%BA-159018237.jpg'}/>
             {props.message}
             <div>
                 <span>like</span> {props.likesCount}

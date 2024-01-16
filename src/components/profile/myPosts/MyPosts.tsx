@@ -1,32 +1,38 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
-import {Post} from './post/Post';
-import {ProfilePropsType} from '../Profile';
-import {addPostAC, updateNewPostTextAC} from '../../../redux/profileReducer';
+import {PostType} from '../../../redux/store';
 
-export const MyPosts: React.FC<ProfilePropsType> = (props) => {
+type MyPostsPropsType = {
+    updateNewPostText: (text: string) => void
+    addPost: () => void
+    postsElements: React.ReactNode
+    newPostText: string
+}
 
-    const postsElements = props.profilePage.posts.map(post => <Post key={post.id}
-                                                                    id={post.id}
-                                                                    message={post.message}
-                                                                    likesCount={post.likesCount}/>)
+export const MyPosts = (props: MyPostsPropsType) => {
 
-    const onClickAddPost = () => props.dispatch(addPostAC())
+    const onClickAddPost = () => {
+        props.addPost()
+    }
 
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => props.dispatch(updateNewPostTextAC(e.currentTarget.value))
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
+    }
 
-    return <div className={s.postsBlock}>
-        <h3>My posts</h3>
-        <div>
+    return (
+        <div className={s.postsBlock}>
+            <h3>My posts</h3>
             <div>
-                <textarea value={props.profilePage.newPostText} onChange={onPostChange}/>
+                <div>
+                    <textarea value={props.newPostText} onChange={onPostChange}/>
+                </div>
+                <div>
+                    <button onClick={onClickAddPost}>Add post</button>
+                </div>
             </div>
-            <div>
-                <button onClick={onClickAddPost}>Add post</button>
+            <div className={s.posts}>
+                {props.postsElements}
             </div>
         </div>
-        <div className={s.posts}>
-            {postsElements}
-        </div>
-    </div>
+    )
 }
