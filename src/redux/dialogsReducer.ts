@@ -1,6 +1,21 @@
-import {ActionsTypes, DialogsPageType} from './store';
+import {ActionsTypes} from './store';
 
-const initialState: DialogsPageType = {
+export type MessageType = {
+    id: string
+    message: string
+}
+export type DialogType = {
+    id: string
+    name: string
+}
+
+export type InitialStateType = {
+    dialogs: DialogType[]
+    messages: MessageType[]
+    newMessageText: string
+}
+
+const initialState: InitialStateType = {
     dialogs: [
         {id: crypto.randomUUID(), name: 'Victor'},
         {id: crypto.randomUUID(), name: 'Pavel'},
@@ -20,7 +35,7 @@ const initialState: DialogsPageType = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
+export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case 'SEND-MESSAGE':
             const newMessage = {id: crypto.randomUUID(), message: state.newMessageText}

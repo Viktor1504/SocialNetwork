@@ -2,20 +2,20 @@ import {addPostAC, profileReducer, updateNewPostTextAC} from './profileReducer';
 import {dialogsReducer, sendMessageAC, updateNewMessageTextAC} from './dialogsReducer';
 import {sidebarReducer} from './sidebarReducer';
 
-export type MessageType = {
+type MessageType = {
     id: string
     message: string
 }
-export type DialogType = {
+type DialogType = {
     id: string
     name: string
 }
-export type PostType = {
+type PostType = {
     id: string
     message: string
     likesCount: number
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 }
@@ -24,7 +24,7 @@ export type DialogsPageType = {
     messages: MessageType[]
     newMessageText: string
 }
-export type SidebarType = {}
+type SidebarType = {}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType

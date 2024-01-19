@@ -2,15 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
-import {DialogsPageType} from '../../redux/store';
+import {DialogsPropsType} from './DialogsContainer';
 
-type DialogsType = {
-    dialogsPage: DialogsPageType
-    updateNewMessage: (text: string) => void
-    sendMessage: () => void
-}
-
-export const Dialogs: React.FC<DialogsType> = (props) => {
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id}
                                                                                 id={dialog.id}
