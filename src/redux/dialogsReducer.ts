@@ -1,4 +1,4 @@
-import {ActionsTypes} from './store';
+import {ActionsTypes} from './actionsTypes';
 
 export type MessageType = {
     id: string
@@ -37,11 +37,11 @@ const initialState: InitialStateType = {
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
+        case 'UPDATE-NEW-MESSAGE-TEXT':
+            return {...state, newMessageText: action.newMessage}
         case 'SEND-MESSAGE':
             const newMessage = {id: crypto.randomUUID(), message: state.newMessageText}
             return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            return {...state, newMessageText: action.newMessage}
         default :
             return state
     }

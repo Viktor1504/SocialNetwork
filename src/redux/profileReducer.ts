@@ -1,4 +1,4 @@
-import {ActionsTypes} from './store';
+import {ActionsTypes} from './actionsTypes';
 
 export type PostType = {
     id: string
@@ -23,11 +23,7 @@ const initialState: InitialStateType = {
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case 'ADD-POST' :
-            const newPost: PostType = {
-                id: crypto.randomUUID(),
-                message: state.newPostText,
-                likesCount: 0
-            }
+            const newPost: PostType = {id: crypto.randomUUID(), message: state.newPostText, likesCount: 0}
             return {...state, posts: [...state.posts, newPost], newPostText: ''}
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.newText}
