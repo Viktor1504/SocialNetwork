@@ -8,6 +8,7 @@ export type UsersType = {
     status: string
     location: { city: string, country: string }
 }
+
 export type InitialStateType = {
     users: UsersType[]
     pageSize: number
