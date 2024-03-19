@@ -2,6 +2,7 @@ import styles from './users.module.css';
 import userPhoto from '../../assets/images/user.jpeg';
 import React from 'react';
 import {UsersPropsType} from './UsersContainer';
+import {NavLink} from 'react-router-dom';
 
 type ExtendedUsersPropsType = Omit<UsersPropsType, 'setUsers' | 'setTotalUsersCount' | 'setCurrentPage'> & {
     onPageChanged: (pageNumber: number) => void;
@@ -26,7 +27,9 @@ export const Users = (props: ExtendedUsersPropsType) => {
             props.users.map(u => <div key={u.id}>
     <span>
         <div>
+            <NavLink to={'/profile/' + u.id}>
             <img src={userPhoto} className={styles.userPhoto}/>
+                </NavLink>
     </div>
     <div>
     {u.followed

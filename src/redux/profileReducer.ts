@@ -8,6 +8,7 @@ export type PostType = {
 export type InitialStateType = {
     posts: PostType[]
     newPostText: string
+    profile: any
 }
 
 const initialState: InitialStateType = {
@@ -17,7 +18,8 @@ const initialState: InitialStateType = {
         {id: crypto.randomUUID(), message: 'Bla', likesCount: 10},
         {id: crypto.randomUUID(), message: 'BLABLABLA', likesCount: 9}
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -27,10 +29,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             return {...state, posts: [...state.posts, newPost], newPostText: ''}
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.newText}
+        case 'SET-USER-PROFILE' :
+            return {...state, profile: action.profile}
         default:
             return state
     }
 }
 
 export const addPostAC = () => ({type: 'ADD-POST'}) as const
+export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile}) as const
 export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const
