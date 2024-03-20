@@ -16,7 +16,7 @@ function App() {
                 <Route path="/dialogs"
                        element={<DialogsContainer/>}
                 />
-                <Route path="/profile"
+                <Route path="/profile/:userId"
                        element={<ProfileContainer/>}
                 />
                 <Route path="/users"

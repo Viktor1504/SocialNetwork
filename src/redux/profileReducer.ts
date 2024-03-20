@@ -5,10 +5,33 @@ export type PostType = {
     message: string
     likesCount: number
 }
+
+export type ProfileType = {
+    aboutMe: string
+    contacts: {
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
+    }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: string
+    photos: {
+        small: string
+        large: string
+    }
+}
+
 export type InitialStateType = {
     posts: PostType[]
     newPostText: string
-    profile: any
+    profile: ProfileType
 }
 
 const initialState: InitialStateType = {
@@ -19,7 +42,27 @@ const initialState: InitialStateType = {
         {id: crypto.randomUUID(), message: 'BLABLABLA', likesCount: 9}
     ],
     newPostText: '',
-    profile: null
+    profile: {
+        aboutMe: '',
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: null,
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: null,
+            mainLink: null
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        fullName: '',
+        userId: '',
+        photos: {
+            small: '',
+            large: ''
+        }
+    }
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {

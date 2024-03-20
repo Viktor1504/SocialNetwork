@@ -35,12 +35,15 @@ export const setTotalUsersCount = (totalCount: number) => ({type: 'SET-TOTAL-USE
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching}) as const
 
 export type UsersType = {
-    id: string
-    photoUrl: string
-    followed: boolean
     name: string
-    status: string
-    location: { city: string, country: string }
+    id: string
+    uniqueUrlName: string | null
+    photos: {
+        small: string | null
+        large: string | null
+    }
+    status: string | null
+    followed: boolean
 }
 export type InitialStateType = {
     users: UsersType[]
