@@ -8,6 +8,9 @@ import {
     toggleIsFetching,
     unfollow
 } from './usersReducer';
+import {setAuthUserData} from './authReducer';
+
+export type SetAuthUserActionType = ReturnType<typeof setAuthUserData>
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -21,3 +24,4 @@ export type ActionsTypes =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | SetAuthUserActionType

@@ -1,41 +1,35 @@
-import React, {Component} from 'react';
 import {Profile} from './Profile';
-import axios from 'axios';
+import {ProfileType, setUserProfile} from '../../redux/profileReducer';
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import axios from 'axios';
 import {connect} from 'react-redux';
-import {setUserProfile} from '../../redux/profileReducer';
 import {AppRootStateType} from '../../redux/redux-store';
 
-function withRouter(Component: any) {
-    function ComponentWithRouterProp(props: any) {
-        let params = useParams()
-        return <Component {...props} params={{params}}/>
-    }
+const ProfileContainer = (props: PropsType) => {
+    const {userId} = useParams<ParamsType>()
 
-    return ComponentWithRouterProp
-}
-
-class ProfileContainer extends Component<any> {
-
-    componentDidMount() {
-        debugger
-        const userId = this.props.params.params.userId
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+    useEffect(() => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId || 2}`)
             .then(res => {
-                debugger
-                this.props.setUserProfile(res.data)
+                props.setUserProfile(res.data)
             })
-    }
+    }, [userId])
 
-    render() {
-        return (
-            <Profile {...this.props} profile={this.props.profile}/>
-        )
-    }
+    return <Profile profile={props.profile}/>
 }
 
-const mapStateToProps = (state: AppRootStateType) => ({
-    profile: state.profilePage.profile
-})
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({profile: state.profilePage.profile})
 
-export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer))
+export default connect(mapStateToProps, {setUserProfile})(ProfileContainer)
+
+type ParamsType = {
+    userId: string
+}
+type MapStatePropsType = {
+    profile: ProfileType
+}
+type MapDispatchPropsType = {
+    setUserProfile: (profile: ProfileType) => void
+}
+type PropsType = MapStatePropsType & MapDispatchPropsType

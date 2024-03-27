@@ -1,39 +1,5 @@
 import {ActionsTypes} from './actionsTypes';
 
-export type PostType = {
-    id: string
-    message: string
-    likesCount: number
-}
-
-export type ProfileType = {
-    aboutMe: string
-    contacts: {
-        facebook: string | null
-        website: string | null
-        vk: string | null
-        twitter: string | null
-        instagram: string | null
-        youtube: string | null
-        github: string | null
-        mainLink: string | null
-    }
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: string
-    photos: {
-        small: string
-        large: string
-    }
-}
-
-export type InitialStateType = {
-    posts: PostType[]
-    newPostText: string
-    profile: ProfileType
-}
-
 const initialState: InitialStateType = {
     posts: [
         {id: crypto.randomUUID(), message: 'Hi, how are you?', likesCount: 12},
@@ -80,5 +46,40 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 export const addPostAC = () => ({type: 'ADD-POST'}) as const
-export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile}) as const
+export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile}) as const
 export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const
+
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: number
+}
+
+export type ProfileType = {
+    aboutMe: string
+    contacts: {
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
+    }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: string
+    photos: {
+        small: string
+        large: string
+    }
+}
+
+export type InitialStateType = {
+    posts: PostType[]
+    newPostText: string
+    profile: ProfileType
+}
