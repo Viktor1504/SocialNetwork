@@ -3,6 +3,8 @@ import userPhoto from '../../assets/images/user.jpeg';
 import React from 'react';
 import {UsersPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
+import axios from 'axios';
+import {subscriptionsAPI} from '../../api/api';
 
 type ExtendedUsersPropsType = Omit<UsersPropsType, 'setUsers' | 'setTotalUsersCount' | 'setCurrentPage'> & {
     onPageChanged: (pageNumber: number) => void;
@@ -33,8 +35,22 @@ export const Users = (props: ExtendedUsersPropsType) => {
     </div>
     <div>
     {u.followed
-        ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-        : <button onClick={() => props.follow(u.id)}>Follow</button>}
+        ? <button onClick={() => {
+            subscriptionsAPI.unfollow(u.id)
+                .then(data => {
+                    if (data.resultCode === 0) {
+                        props.unfollow(u.id)
+                    }
+                })
+        }}>Unfollow</button>
+        : <button onClick={() => {
+            subscriptionsAPI.follow(u.id)
+                .then(data => {
+                    if (data.resultCode === 0) {
+                        props.follow(u.id)
+                    }
+                })
+        }}>Follow</button>}
     </div>
     </span>
                 <span>
