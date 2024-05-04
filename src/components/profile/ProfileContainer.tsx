@@ -1,35 +1,45 @@
 import {Profile} from './Profile';
-import {ProfileType, setUserProfile} from '../../redux/profileReducer';
-import {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
-import axios from 'axios';
+import {getStatusTC, getUserProfileTC, ProfileType, updateStatusTC} from '../../redux/profileReducer';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../redux/redux-store';
+import React, {ComponentType, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import {compose} from 'redux';
+import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
 
 const ProfileContainer = (props: PropsType) => {
     const {userId} = useParams<ParamsType>()
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId || 2}`)
-            .then(res => {
-                props.setUserProfile(res.data)
-            })
+        props.getUserProfileTC(userId || '22803')
+        props.getStatusTC(userId || '22803')
     }, [userId])
 
-    return <Profile profile={props.profile}/>
+    return <Profile {...props} profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC}/>
 }
 
-const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({profile: state.profilePage.profile})
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
+    return {
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+    }
+}
 
-export default connect(mapStateToProps, {setUserProfile})(ProfileContainer)
+export default compose<ComponentType>(
+    connect(mapStateToProps, {getUserProfileTC, getStatusTC, updateStatusTC}),
+    WithAuthRedirect
+)(ProfileContainer)
 
 type ParamsType = {
     userId: string
 }
 type MapStatePropsType = {
     profile: ProfileType
+    status: string
 }
 type MapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType) => void
+    getUserProfileTC: (userId: string) => void
+    getStatusTC: (userId: string) => void
+    updateStatusTC: (userId: string) => void
 }
 type PropsType = MapStatePropsType & MapDispatchPropsType

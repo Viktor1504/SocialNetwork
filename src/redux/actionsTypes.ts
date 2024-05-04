@@ -1,27 +1,28 @@
-import {addPostAC, setUserProfile, updateNewPostTextAC} from './profileReducer';
+import {addPostAC, setStatusAC, setUserProfile, updateNewPostTextAC} from './profileReducer';
 import {sendMessageAC, updateNewMessageTextAC} from './dialogsReducer';
 import {
-    follow,
+    followSuccess,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleFollowingProgress,
     toggleIsFetching,
-    unfollow
+    unfollowSuccess
 } from './usersReducer';
-import {setAuthUserData} from './authReducer';
-
-export type SetAuthUserActionType = ReturnType<typeof setAuthUserData>
+import {setAuthUserData, setIsLoggedInAC} from './authReducer';
 
 export type ActionsTypes =
-    ReturnType<typeof addPostAC>
+    | ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof sendMessageAC>
     | ReturnType<typeof updateNewMessageTextAC>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
-    | SetAuthUserActionType
+    | ReturnType<typeof toggleFollowingProgress>
+    | ReturnType<typeof setStatusAC>
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setIsLoggedInAC>

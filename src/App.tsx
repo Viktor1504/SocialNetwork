@@ -2,10 +2,11 @@ import React from 'react';
 import './App.css';
 import {Navbar} from './components/navbar/Navbar';
 import {Route, Routes} from 'react-router-dom';
-import {DialogsContainer} from './components/dialogs/DialogsContainer';
+import HeaderContainer from './components/header/HeaderContainer';
 import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
-import HeaderContainer from './components/header/HeaderContainer';
+import DialogsContainer from './components/dialogs/DialogsContainer';
+import {Login} from './components/login/Login';
 
 function App() {
     return <div className="app-wrapper">
@@ -21,6 +22,9 @@ function App() {
                 />
                 <Route path="/users"
                        element={<UsersContainer/>}
+                />
+                <Route path="/login"
+                       element={<Login/>}
                 />
             </Routes>
         </div>
